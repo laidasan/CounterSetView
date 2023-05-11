@@ -50,7 +50,8 @@
     </div>
     <div class="counter-set-rules">
       <!-- TODO rules -->
-      <div class="process-rules">
+      <div class="process-rules rules">
+        <div class="rules-title">發生順序</div>
         <ol class="rule-list">
           <li 
             v-for="(rule, index) of processRules"
@@ -95,7 +96,7 @@ export default {
       parentCounterSet: new Set(),
       preSiblingCounterSet: new Set(),
       currentHtmlStep: 0,
-      currentProcessRuleStep: -1,
+      currentProcessRuleStep: 0,
       currentInheritRuleStep: -1,
       currentCounterProcessRuleStep: -1,
 
@@ -115,8 +116,13 @@ export default {
       ],
 
       processRules: [
-        
+        'Existing counters are inherited from previous elements.',
+        'New counters are instantiated (counter-reset).',
+        'Counter values are incremented (counter-increment).',
+        'Counter values are explicitly set (counter-set).',
+        'Counter values are used (counter()/counters()).',
       ], 
+
       inheritRules: [
 
       ],
@@ -144,7 +150,7 @@ export default {
 
   &-column {
     flex-shrink: 0;
-    box-shadow: 0 0 0 1px #292929;
+    box-shadow: 0 0 0 1px #fff;
       
     &--action {
       // flex-grow: 2;
@@ -198,11 +204,57 @@ export default {
   height: 50%;
 }
 
+.counter-set-rules {
+  padding: 8px 12px;
+}
+
+.rules-title {
+  font-size: 21px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
 .rule-list {
+  font-size: 18px;
+  line-height: 1.3;
+  counter-reset: num 0;
+
   &-item {
+    counter-increment: num;
+
+    &::before {
+      content: counter(num) '.';
+    }
+    
     &--active {
       color: $primary;
     }
+  }
+}
+
+.features {
+  text-align: center;
+}
+
+.feature-button {
+  background-color: $primary;
+  border: none;
+  color: #fff;
+  width: 138px;
+  height: 38px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba($primary, .9);
+  }
+  
+  &-next {
+   
+  }
+
+  &-prev {
+   margin-right: 8px;
   }
 }
 

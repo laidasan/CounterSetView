@@ -49,3 +49,9 @@ table {
 input[type="text"],input[type="email"],input[type="tel"] {
 	box-sizing: border-box;
 }
+
+
+body {
+    background-color: #3a3a3a;
+	color: #fff;
+}
