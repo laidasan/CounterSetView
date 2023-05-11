@@ -18,7 +18,7 @@
           <div class="preceding-element-counter-set">
             <div class="title">preceding-element-counter-set</div>
             <div
-              v-for="counter of elementCounterSet"
+              v-for="counter of precedingElementCounterSet"
               :key="`${counter.name} + ${counter.creator} + ${counter.value}`"
             >
               {{ genCounterString(counter) }}
@@ -29,7 +29,7 @@
           <div class="parent-counter-set">
             <div class="title">parent-counter-set</div>
             <div
-              v-for="counter of elementCounterSet"
+              v-for="counter of parentCounterSet"
               :key="`${counter.name} + ${counter.creator} + ${counter.value}`"
             >
               {{ genCounterString(counter) }}
@@ -38,7 +38,7 @@
           <div class="pre-sibling-counter-set">
             <div class="title">pre-sibling-counter-set</div>
             <div
-              v-for="counter of elementCounterSet"
+              v-for="counter of preSiblingCounterSet"
               :key="`${counter.name} + ${counter.creator} + ${counter.value}`"
             >
               {{ genCounterString(counter) }}
@@ -125,16 +125,15 @@ export default {
 
   components: {},
 
+  // { name: "test", creator: "element-a", value: 0 },
   data() {
     return {
       actions: [],
       currentAction: 0,
-      elementCounterSet: new Set([
-        { name: "test", creator: "element-a", value: 0 },
-      ]),
+      elementCounterSet: new Set(),
+      precedingElementCounterSet: new Set(), // 前一個被解析的 counter-set
       parentCounterSet: new Set(), // 父層的 counter-set
       preSiblingCounterSet: new Set(), // 前一個兄弟元素的 counter-set
-      precedingElementCounterSet: new Set(), // 前一個被解析的 counter-set
       currentHtmlStep: -1,
       currentProcessRuleStep: -1,
       currentInheritRuleStep: -1,
