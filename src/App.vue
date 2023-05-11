@@ -246,13 +246,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.counter-set-panel-view {
+  width: 1338px;
+}
 .counter-set-view {
-  min-width: 1024px;
-  max-width: 1180px;
   height: 480px;
 
   &-column {
-    flex-shrink: 0;
+    // flex-shrink: 0;
     box-shadow: 0 0 0 1px #fff;
 
     &--action {
