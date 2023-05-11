@@ -9,8 +9,9 @@
           <div class="element-counter-set">
             <div class="title">element-counter-set</div>
             <div
-              v-for="counter of elementCounterSet"
+              v-for="(counter, index) of elementCounterSet"
               :key="`${counter.name} + ${counter.creator} + ${counter.value}`"
+              :class="[{ 'innermost-counter': index === elementCounterSet.size - 1}]"
             >
               {{ genCounterString(counter) }}
             </div>
@@ -59,6 +60,7 @@
         </div>
       </div>
     </div>
+
     <div class="counter-set-rules d-flex">
       <!-- TODO rules -->
       <div class="process-rules rules">
@@ -112,6 +114,7 @@
         </ol>
       </div>
     </div>
+
     <div class="features">
       <button class="feature-button feature-button-prev" @click="prev">
         Prev
@@ -309,6 +312,12 @@ export default {
 .parent-counter-set,
 .pre-sibling-counter-set {
   height: 50%;
+}
+
+.element-counter-set {
+  .innermost-counter {
+    color: $primary;
+  }
 }
 
 // rules

@@ -233,8 +233,8 @@ const elementD = [
     currentCounterResetProcessRuleStep: -1,
   },
 
-   // 建立 counter
-   {
+  // 建立 counter
+  {
     elementCounterSet: new Set([{ name: 'num', creator: 'element-a', value: 2 }]),
     precedingElementCounterSet: new Set([{ name: 'num', creator: 'element-a', value: 2 }]),
     parentCounterSet: new Set([{ name: 'num', creator: 'element-a', value: 0 }]),
@@ -464,6 +464,409 @@ const elementF = [
   }
 ]
 
+const elementG = [
+  // 繼承
+  {
+    elementCounterSet: new Set(),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    parentCounterSet: new Set([{ name: 'num', creator: 'element-a', value: 0 }]),
+    preSiblingCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    currentHtmlStep: 6,
+    currentProcessRuleStep: 0,
+    currentInheritRuleStep: 0,
+    currentCounterResetProcessRuleStep: -1,
+  },
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    parentCounterSet: new Set([{ name: 'num', creator: 'element-a', value: 0 }]),
+    preSiblingCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    currentHtmlStep: 6,
+    currentProcessRuleStep: 0,
+    currentInheritRuleStep: 1,
+    currentCounterResetProcessRuleStep: -1,
+  },
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    parentCounterSet: new Set([{ name: 'num', creator: 'element-a', value: 0 }]),
+    preSiblingCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    currentHtmlStep: 6,
+    currentProcessRuleStep: 0,
+    currentInheritRuleStep: 3,
+    currentCounterResetProcessRuleStep: -1,
+  },
+
+  // 建立 counter
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    parentCounterSet: new Set([{ name: 'num', creator: 'element-a', value: 0 }]),
+    preSiblingCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    currentHtmlStep: 6,
+    currentProcessRuleStep: 1,
+    currentInheritRuleStep: -1,
+    currentCounterResetProcessRuleStep: 0,
+  },
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    parentCounterSet: new Set([{ name: 'num', creator: 'element-a', value: 0 }]),
+    preSiblingCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    currentHtmlStep: 6,
+    currentProcessRuleStep: 1,
+    currentInheritRuleStep: -1,
+    currentCounterResetProcessRuleStep: 1,
+  },
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    parentCounterSet: new Set([{ name: 'num', creator: 'element-a', value: 0 }]),
+    preSiblingCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    currentHtmlStep: 6,
+    currentProcessRuleStep: 1,
+    currentInheritRuleStep: -1,
+    currentCounterResetProcessRuleStep: 2,
+  },
+
+  // counter
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    parentCounterSet: new Set([{ name: 'num', creator: 'element-a', value: 0 }]),
+    preSiblingCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-d', value: 1 }
+    ]),
+    currentHtmlStep: 6,
+    currentProcessRuleStep: 4,
+    currentInheritRuleStep: -1,
+    currentCounterResetProcessRuleStep: -1,
+  }
+]
+
+const elementH = [
+  // 繼承
+  {
+    elementCounterSet: new Set(),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    parentCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    preSiblingCounterSet: new Set(),
+    currentHtmlStep: 7,
+    currentProcessRuleStep: 0,
+    currentInheritRuleStep: 0,
+    currentCounterResetProcessRuleStep: -1,
+  },
+  {
+    elementCounterSet: new Set(),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    parentCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    preSiblingCounterSet: new Set(),
+    currentHtmlStep: 7,
+    currentProcessRuleStep: 0,
+    currentInheritRuleStep: 1,
+    currentCounterResetProcessRuleStep: -1,
+  },
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    parentCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    preSiblingCounterSet: new Set(),
+    currentHtmlStep: 7,
+    currentProcessRuleStep: 0,
+    currentInheritRuleStep: 2,
+    currentCounterResetProcessRuleStep: -1,
+  },
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    parentCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    preSiblingCounterSet: new Set(),
+    currentHtmlStep: 7,
+    currentProcessRuleStep: 0,
+    currentInheritRuleStep: 3,
+    currentCounterResetProcessRuleStep: -1,
+  },
+
+  // 建立 counter
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    parentCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    preSiblingCounterSet: new Set(),
+    currentHtmlStep: 7,
+    currentProcessRuleStep: 1,
+    currentInheritRuleStep: -1,
+    currentCounterResetProcessRuleStep: 0,
+  },
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    parentCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    preSiblingCounterSet: new Set(),
+    currentHtmlStep: 7,
+    currentProcessRuleStep: 1,
+    currentInheritRuleStep: -1,
+    currentCounterResetProcessRuleStep: 1,
+  },
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    parentCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 }
+    ]),
+    preSiblingCounterSet: new Set(),
+    currentHtmlStep: 7,
+    currentProcessRuleStep: 1,
+    currentInheritRuleStep: -1,
+    currentCounterResetProcessRuleStep: 2,
+  },
+]
+
+const elementI = [
+  // 繼承
+  {
+    elementCounterSet: new Set(),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    parentCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    preSiblingCounterSet: new Set(),
+    currentHtmlStep: 8,
+    currentProcessRuleStep: 0,
+    currentInheritRuleStep: 0,
+    currentCounterResetProcessRuleStep: -1,
+  },
+  {
+    elementCounterSet: new Set(),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    parentCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    preSiblingCounterSet: new Set(),
+    currentHtmlStep: 8,
+    currentProcessRuleStep: 0,
+    currentInheritRuleStep: 1,
+    currentCounterResetProcessRuleStep: -1,
+  },
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    parentCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    preSiblingCounterSet: new Set(),
+    currentHtmlStep: 8,
+    currentProcessRuleStep: 0,
+    currentInheritRuleStep: 2,
+    currentCounterResetProcessRuleStep: -1,
+  },
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    parentCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    preSiblingCounterSet: new Set(),
+    currentHtmlStep: 8,
+    currentProcessRuleStep: 0,
+    currentInheritRuleStep: 3,
+    currentCounterResetProcessRuleStep: -1,
+  },
+
+  // counter-increment
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 1 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    parentCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    preSiblingCounterSet: new Set(),
+    currentHtmlStep: 8,
+    currentProcessRuleStep: 3,
+    currentInheritRuleStep: -1,
+    currentCounterResetProcessRuleStep: -1,
+  },
+
+  // counters
+  {
+    elementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 1 }
+    ]),
+    precedingElementCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    parentCounterSet: new Set([
+      { name: 'num', creator: 'element-a', value: 2 },
+      { name: 'num', creator: 'element-g', value: 0 },
+      { name: 'num', creator: 'element-h', value: 0 }
+    ]),
+    preSiblingCounterSet: new Set(),
+    currentHtmlStep: 8,
+    currentProcessRuleStep: 4,
+    currentInheritRuleStep: -1,
+    currentCounterResetProcessRuleStep: -1,
+  }
+]
+
 
 export const createDemoActions = () => ([
   ...elementA,
@@ -471,5 +874,8 @@ export const createDemoActions = () => ([
   ...elementC,
   ...elementD,
   ...elementE,
-  ...elementF
+  ...elementF,
+  ...elementG,
+  ...elementH,
+  ...elementI
 ])
