@@ -1,16 +1,27 @@
 <template>
   <div class="counter-set-panel-view">
     <div class="counter-set-view d-flex">
-      <div class="counter-set-view-column counter-set-view-column--action action-set-view d-flex">
+      <div
+        class="counter-set-view-column counter-set-view-column--action action-set-view d-flex"
+      >
         <!-- TODO Action Set -->
         <div class="action-set-view-column action-set-view-column--main">
-         <div class="element-counter-set">
-         <div class="title">element-counter-set</div>
+          <div class="element-counter-set">
+            <div class="title">element-counter-set</div>
             <div
               v-for="counter of elementCounterSet"
               :key="`${counter.name} + ${counter.creator} + ${counter.value}`"
             >
-            {{ genCounterString(counter) }}
+              {{ genCounterString(counter) }}
+            </div>
+          </div>
+          <div class="preceding-element-counter-set">
+            <div class="title">preceding-element-counter-set</div>
+            <div
+              v-for="counter of elementCounterSet"
+              :key="`${counter.name} + ${counter.creator} + ${counter.value}`"
+            >
+              {{ genCounterString(counter) }}
             </div>
           </div>
         </div>
@@ -21,7 +32,7 @@
               v-for="counter of elementCounterSet"
               :key="`${counter.name} + ${counter.creator} + ${counter.value}`"
             >
-            {{ genCounterString(counter) }}
+              {{ genCounterString(counter) }}
             </div>
           </div>
           <div class="pre-sibling-counter-set">
@@ -30,7 +41,7 @@
               v-for="counter of elementCounterSet"
               :key="`${counter.name} + ${counter.creator} + ${counter.value}`"
             >
-            {{ genCounterString(counter) }}
+              {{ genCounterString(counter) }}
             </div>
           </div>
         </div>
@@ -41,24 +52,24 @@
           :key="htmlString"
           :class="[
             'demo-html-str',
-            { 'demo-html-str--active': index === currentHtmlStep}
+            { 'demo-html-str--active': index === currentHtmlStep },
           ]"
         >
           {{ htmlString }}
         </div>
       </div>
     </div>
-    <div class="counter-set-rules">
+    <div class="counter-set-rules d-flex">
       <!-- TODO rules -->
       <div class="process-rules rules">
         <div class="rules-title">發生順序</div>
         <ol class="rule-list">
-          <li 
+          <li
             v-for="(rule, index) of processRules"
             :key="rule"
             :class="[
               'rule-list-item',
-              { 'rule-list-item--active': index === currentProcessRuleStep }
+              { 'rule-list-item--active': index === currentProcessRuleStep },
             ]"
           >
             {{ rule }}
@@ -66,12 +77,39 @@
         </ol>
       </div>
 
-      <div class="inherit-rules">
-
+      <div class="counter-reset-process-rules rules">
+        <div class="rules-title">建立 counter 規則</div>
+        <ol class="rule-list">
+          <li
+            v-for="(rule, index) of counterResetProcessRules"
+            :key="rule"
+            :class="[
+              'rule-list-item',
+              {
+                'rule-list-item--active':
+                  index === currentCounterProcessRuleStep,
+              },
+            ]"
+          >
+            {{ rule }}
+          </li>
+        </ol>
       </div>
 
-      <div class="counter-reset-process-rules">
-
+      <div class="inherit-rules rules">
+        <div class="rules-title">繼承規則</div>
+        <ol class="rule-list">
+          <li
+            v-for="(rule, index) of inheritRules"
+            :key="rule"
+            :class="[
+              'rule-list-item',
+              { 'rule-list-item--active': index === currentInheritRuleStep },
+            ]"
+          >
+            {{ rule }}
+          </li>
+        </ol>
       </div>
     </div>
     <div class="features">
@@ -89,46 +127,54 @@ export default {
 
   data() {
     return {
-      history: [],
+      actions: [],
+      currentAction: 0,
       elementCounterSet: new Set([
-        { name: 'test' , creator: 'element-a', value: 0 }
+        { name: "test", creator: "element-a", value: 0 },
       ]),
-      parentCounterSet: new Set(),
-      preSiblingCounterSet: new Set(),
-      currentHtmlStep: 0,
-      currentProcessRuleStep: 0,
+      parentCounterSet: new Set(), // 父層的 counter-set
+      preSiblingCounterSet: new Set(), // 前一個兄弟元素的 counter-set
+      precedingElementCounterSet: new Set(), // 前一個被解析的 counter-set
+      currentHtmlStep: -1,
+      currentProcessRuleStep: -1,
       currentInheritRuleStep: -1,
       currentCounterProcessRuleStep: -1,
 
       demoHtml: [
-       '<div class="element-a counter-reset">',
-       '  <div class="element-b counter-increment counter">b</div>',
-       '  <div class="element-c counter-increment counter">c</div>',
-       '  <div class="element-d counter-reset counter">d</div>',
-       '  <div class="element-e counter-increment counter">e</div>',
-       '  <div class="element-f counters">f</div>',
-       '  <div class="element-g counter-reset counter">g',
-       '    <div class="element-h counter-reset">h',
-       '      <div class="element-i counter-increment counters">i</div>',
-       '    </div>',
-       '  </div>',
-       '</div>'
+        '<div class="element-a counter-reset">',
+        '  <div class="element-b counter-increment counter">b</div>',
+        '  <div class="element-c counter-increment counter">c</div>',
+        '  <div class="element-d counter-reset counter">d</div>',
+        '  <div class="element-e counter-increment counter">e</div>',
+        '  <div class="element-f counters">f</div>',
+        '  <div class="element-g counter-reset counter">g',
+        '    <div class="element-h counter-reset">h',
+        '      <div class="element-i counter-increment counters">i</div>',
+        "    </div>",
+        "  </div>",
+        "</div>",
       ],
 
       processRules: [
-        'Existing counters are inherited from previous elements.',
-        'New counters are instantiated (counter-reset).',
-        'Counter values are incremented (counter-increment).',
-        'Counter values are explicitly set (counter-set).',
-        'Counter values are used (counter()/counters()).',
-      ], 
+        "Existing counters are inherited from previous elements.",
+        "New counters are instantiated (counter-reset).",
+        "Counter values are incremented (counter-increment).",
+        "Counter values are explicitly set (counter-set).",
+        "Counter values are used (counter()/counters()).",
+      ],
 
       inheritRules: [
-
+        "If element is the root of its document tree, the element has an initially-empty CSS counters set. Return.",
+        "若有前一個兄弟元素, 則繼承前一個兄弟元素的 counters-set",
+        "若無前一個兄弟元素，則繼承父層的 counters-set",
+        "最終使用 dom tree 中,  前一個被解析節點的 element counters set (所以有可能是前一個元素的後代), 若有與自身 counter 同名且同個 creator 的 counter , 就將前一個解析節點的該 counter 值設定到自身該 counter 的值",
       ],
-      counterResetProcessRules: [
 
-      ]
+      counterResetProcessRules: [
+        "Let counters be element’s CSS counters set.",
+        "Let innermost counter be the last counter in counters with the name name. If innermost counter’s originating element is element or a previous sibling of element, remove innermost counter from counters.",
+        "Append a new counter to counters with name name, originating element element, and initial value value",
+      ],
     };
   },
 
@@ -136,8 +182,20 @@ export default {
 
   methods: {
     genCounterString(counter) {
-      return `{ name: ${counter.name}, creator: ${counter.creator}, value: ${counter.value} }`
-    }
+      return `{ name: ${counter.name}, creator: ${counter.creator}, value: ${counter.value} }`;
+    },
+
+    next() {
+      if (this.currentAction < actions.length - 1) {
+        this.currentAction += 1
+      }
+    },
+
+    prev() {
+      if (this.currentAction > 0) {
+        this.currentAction -= 1
+      }
+    },
   },
 };
 </script>
@@ -151,15 +209,13 @@ export default {
   &-column {
     flex-shrink: 0;
     box-shadow: 0 0 0 1px #fff;
-      
+
     &--action {
-      // flex-grow: 2;
       flex-basis: calc(100% / 3) * 2;
     }
 
     &--html {
       flex-basis: calc(100% / 3) * 1;
-      // flex-grow: 1;
       white-space: pre;
       line-height: 1.3;
       font-size: 18px;
@@ -172,11 +228,15 @@ export default {
     flex-shrink: 0;
 
     &--main {
-      flex-basis: 54%;
+      flex-basis: 50%;
+      padding-top: 12px;
+      padding-bottom: 12px;
     }
 
     &--secondary {
-      flex-basis: 46%;
+      flex-basis: 50%;
+      padding-top: 12px;
+      padding-bottom: 12px;
     }
   }
 }
@@ -184,7 +244,8 @@ export default {
 // counter-set
 .parent-counter-set,
 .pre-sibling-counter-set,
-.element-counter-set {
+.element-counter-set,
+.preceding-element-counter-set {
   line-height: 1.3;
   text-align: center;
 
@@ -194,9 +255,9 @@ export default {
   }
 }
 
-.element-counter-set {
-  padding-top: 12px;
-  padding-bottom: 12px;
+.element-counter-set,
+.preceding-element-counter-set {
+  height: 50%;
 }
 
 .parent-counter-set,
@@ -204,8 +265,29 @@ export default {
   height: 50%;
 }
 
+// rules
 .counter-set-rules {
-  padding: 8px 12px;
+  padding: 8px 12px 12px;
+  flex-wrap: wrap;
+}
+
+.process-rules,
+.counter-reset-process-rules,
+.inherit-rules {
+}
+
+.process-rules,
+.counter-reset-process-rules {
+  flex-basis: calc(50% - 6px);
+  margin-bottom: 12px;
+}
+
+.process-rule {
+  margin-right: 12px;
+}
+
+.inherit-rules {
+  flex-basis: 100%;
 }
 
 .rules-title {
@@ -223,9 +305,9 @@ export default {
     counter-increment: num;
 
     &::before {
-      content: counter(num) '.';
+      content: counter(num) ".";
     }
-    
+
     &--active {
       color: $primary;
     }
@@ -246,18 +328,16 @@ export default {
   cursor: pointer;
 
   &:hover {
-    background-color: rgba($primary, .9);
+    background-color: rgba($primary, 0.9);
   }
-  
+
   &-next {
-   
   }
 
   &-prev {
-   margin-right: 8px;
+    margin-right: 8px;
   }
 }
-
 
 .demo-html-str {
   &--active {
