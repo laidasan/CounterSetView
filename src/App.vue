@@ -87,7 +87,7 @@
               'rule-list-item',
               {
                 'rule-list-item--active':
-                  index === currentCounterProcessRuleStep,
+                  index === currentCounterResetProcessRuleStep,
               },
             ]"
           >
@@ -113,13 +113,31 @@
       </div>
     </div>
     <div class="features">
-      <button class="feature-button feature-button-prev">Prev</button>
-      <button class="feature-button feature-button-next">Next</button>
+      <button class="feature-button feature-button-prev" @click="prev">
+        Prev
+      </button>
+      <button class="feature-button feature-button-next" @click="next">
+        Next
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import { isNil } from "ramda";
+import { createDemoActions } from "./actions.js";
+
+const NeedUpdateKeys = [
+  "elementCounterSet",
+  "precedingElementCounterSet",
+  "parentCounterSet",
+  "preSiblingCounterSet",
+  "currentHtmlStep",
+  "currentProcessRuleStep",
+  "currentInheritRuleStep",
+  "currentCounterResetProcessRuleStep",
+];
+
 export default {
   name: "App",
 
@@ -128,8 +146,8 @@ export default {
   // { name: "test", creator: "element-a", value: 0 },
   data() {
     return {
-      actions: [],
-      currentAction: 0,
+      actions: createDemoActions(),
+      currentAction: -1,
       elementCounterSet: new Set(),
       precedingElementCounterSet: new Set(), // 前一個被解析的 counter-set
       parentCounterSet: new Set(), // 父層的 counter-set
@@ -137,7 +155,7 @@ export default {
       currentHtmlStep: -1,
       currentProcessRuleStep: -1,
       currentInheritRuleStep: -1,
-      currentCounterProcessRuleStep: -1,
+      currentCounterResetProcessRuleStep: -1,
 
       demoHtml: [
         '<div class="element-a counter-reset">',
@@ -184,15 +202,43 @@ export default {
       return `{ name: ${counter.name}, creator: ${counter.creator}, value: ${counter.value} }`;
     },
 
+    resetToNoneStepData() {
+      this.currentAction = -1;
+      this.elementCounterSet = new Set();
+      this.precedingElementCounterSet = new Set();
+      this.parentCounterSet = new Set();
+      this.preSiblingCounterSet = new Set();
+      this.currentHtmlStep = -1;
+      this.currentProcessRuleStep = -1;
+      this.currentInheritRuleStep = -1;
+      this.currentCounterResetProcessRuleStep = -1;
+    },
+
     next() {
-      if (this.currentAction < actions.length - 1) {
-        this.currentAction += 1
+      if (this.currentAction < this.actions.length - 1) {
+        const nextAction = this.currentAction + 1;
+        const actionData = this.actions[nextAction];
+
+        Object.entries(actionData).forEach(([key, value]) => {
+          this[key] = value;
+        });
+        this.currentAction = nextAction;
       }
     },
 
     prev() {
-      if (this.currentAction > 0) {
-        this.currentAction -= 1
+      if (this.currentAction >= 0) {
+        const prevAction = this.currentAction - 1;
+        const actionData = this.actions[prevAction];
+
+        if (isNil(actionData)) {
+          this.resetToNoneStepData();
+        } else {
+          Object.entries(actionData).forEach(([key, value]) => {
+            this[key] = value;
+          });
+          this.currentAction = prevAction;
+        }
       }
     },
   },
@@ -302,6 +348,7 @@ export default {
 
   &-item {
     counter-increment: num;
+    transition: color .3s;
 
     &::before {
       content: counter(num) ".";
@@ -339,6 +386,8 @@ export default {
 }
 
 .demo-html-str {
+  transition: color .3s;
+
   &--active {
     color: $primary;
   }
