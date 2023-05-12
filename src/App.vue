@@ -62,9 +62,8 @@
     </div>
 
     <div class="counter-set-rules d-flex">
-      <!-- TODO rules -->
       <div class="process-rules rules">
-        <div class="rules-title">發生順序</div>
+        <div class="rules-title">執行順序</div>
         <ol class="rule-list">
           <li
             v-for="(rule, index) of processRules"
@@ -99,7 +98,7 @@
       </div>
 
       <div class="inherit-rules rules">
-        <div class="rules-title">繼承規則</div>
+        <div class="rules-title">繼承順序</div>
         <ol class="rule-list">
           <li
             v-for="(rule, index) of inheritRules"
@@ -176,24 +175,24 @@ export default {
       ],
 
       processRules: [
-        "Existing counters are inherited from previous elements.",
-        "New counters are instantiated (counter-reset).",
-        "Counter values are incremented (counter-increment).",
-        "Counter values are explicitly set (counter-set).",
-        "Counter values are used (counter()/counters()).",
+        '從前一個兄弟元素或者父層元素繼承 counter-set',
+        '建立 counter (counter-reset). ',
+        '更改 counter (counter-increment). ',
+        '更改 counter (counter-set). ',
+        '讀取 counter (counter()/counters()).'
       ],
 
       inheritRules: [
-        "If element is the root of its document tree, the element has an initially-empty CSS counters set. Return.",
-        "若有前一個兄弟元素, 則繼承前一個兄弟元素的 counters-set",
-        "若無前一個兄弟元素，則繼承父層的 counters-set",
-        "最終使用 dom tree 中,  前一個被解析節點的 element counters set (所以有可能是前一個元素的後代), 若有與自身 counter 同名且同個 creator 的 counter , 就將前一個解析節點的該 counter 值設定到自身該 counter 的值",
+        '如果元素是 document tree 的  root , 該元素有最初的空 counter-set. Return.',
+        '若有前一個兄弟元素, 則繼承前一個兄弟元素的 counters-set ',
+        '若無前一個兄弟元素，則繼承父層的 counters-set ',
+        `最終使用 document tree 中, 前一個被解析節點的 element counter-set 中 (所以有可能是前一個元素的後代), 若有與自身 counter 同名且同個 creator 的 counter , 就將該 counter 的值設置到自身 counter 的值`
       ],
 
       counterResetProcessRules: [
-        "Let counters be element’s CSS counters set.",
-        "Let innermost counter be the last counter in counters with the name name. If innermost counter’s originating element is element or a previous sibling of element, remove innermost counter from counters.",
-        "Append a new counter to counters with name name, originating element element, and initial value value",
+        'Let counters be element’s CSS counters set.',
+        '從自身的 counter-set 中找出同名的 counter, 若該 counter 的 creator 為自身, 或者是之前的兄弟層元素, 移除該 counter.',
+        '新增新的 counter 到自身的 counter-set 中'
       ],
     };
   },
@@ -353,7 +352,7 @@ export default {
 
 .rule-list {
   font-size: 18px;
-  line-height: 1.3;
+  line-height: 1.5;
   counter-reset: num 0;
 
   &-item {
