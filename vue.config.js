@@ -1,4 +1,6 @@
 module.exports = {
+    publicPath: process.env.VUE_APP_ENV === 'production' ? '/CounterSetView/dist' : '/',
+
     configureWebpack: config => {
         // console.log(config.css);
     },
